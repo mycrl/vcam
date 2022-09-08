@@ -1,38 +1,80 @@
 # Windows virtual Camera
 
-虚拟摄像头插件，分为COM组件和调用方DLL，并提供了Node.Js本地模块，可以作为Electron本机模块使用.  
-
-## 项目结构
-
-* `virtual.camera` COM组件，通过注册组件方式来作为虚拟摄像头Server.  
-* `virtual.camera.client` 客户端DLL，与Server之间通过共享内存队列通信.  
-* `virtual.camera.napi` Node.Js本地插件.  
+Virtual camera plugin, divided into COM components and caller dll and provides Node.Js native modules.
 
 
-## 编译
+## Build
 
-#### virtual.camera
-
-先通过cmake生成vs工程文件:
+first generate the visual studio project file through cmake:
 ```bash
+cd virtual.camera
 mkdir build
 cd build
 cmake ..
 ```
 
-打开build目录中的工程文件生成出DLL.
+open the project file in the build directory to generate the dll.
 
-#### virtual.camera.client
 
-直接打开工程文件生成
+### Node.js Napi Module
 
-### virtual.camera.napi
-
-前提条件，需要Node.Js 16.x版本以及Pyhton环境.  
+prerequisites, Node.Js 16.x version and Pyhton environment are required.  
 
 ```bash
 npm install
 npm install -g node-gyp
-node-gyp configure
-node-gyp build
+node-gyp configure build
 ```
+
+
+## Usage
+
+register com component:
+
+```bash
+cd virtual.camera
+./install.bat
+```
+
+output empty frame:
+
+```c
+#include "client.h"
+#include "windows.h"
+
+int main() 
+{
+    NV12Layout layout = get_nv12_layout(1920, 1080);
+    uint8_t* frame_buf = (uint8_t*)malloc(sizeof(uint8) * layout.size);
+    if (frame_buf == NULL)
+    {
+        return -1;
+    }
+    
+    VCam* vcam = vcam_open();
+    if (vcam == NULL)
+    {
+        return -1;
+    }
+    
+    if (vcam_start(vcam, 1920, 1080) != 0)
+    {
+        return -1;
+    }
+    
+    for (;;)
+    {
+        Sleep(1000 / 30);
+        if (vcam_write_frame(vcam, frame_buf) != 0)
+        {
+            return -1;
+        }
+    }
+}
+```
+
+
+## License
+
+[GPL](./LICENSE)
+Copyright (c) 2020 Mr.Panda.
