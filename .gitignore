@@ -1,0 +1,5 @@
+build/
+virtual.camera.client/.vs/
+virtual.camera.client/x64/
+virtual.camera.client/x86/
+node_modules/
