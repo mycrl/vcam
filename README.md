@@ -4,16 +4,16 @@
 </div>
 <br/>
 <div align="center">
-  <strong>Windows Virtual Camera</strong>
-</div>
-<div align="center">
   <img src="https://img.shields.io/github/actions/workflow/status/mycrl/vcam/release.yml?branch=main"/>
   <img src="https://img.shields.io/github/license/mycrl/vcam"/>
   <img src="https://img.shields.io/github/issues/mycrl/vcam"/>
   <img src="https://img.shields.io/github/stars/mycrl/vcam"/>
 </div>
-<br/>
-<br/>
+<div align="center">
+  <strong>Windows Virtual Camera</strong>
+</div>
+
+---
 
 This is a modified version of the Virtual Camera module from within OBS, providing clients in C/C++ and Node.js.
 
