@@ -10,7 +10,7 @@ private:
     Napi::Value Start(const Napi::CallbackInfo& info);
     Napi::Value Write(const Napi::CallbackInfo& info);
     Napi::Value Stop(const Napi::CallbackInfo& info);
-    Napi::Value GetNV12Layout(const Napi::CallbackInfo& info);
+    Napi::Value GetLayout(const Napi::CallbackInfo& info);
     Napi::Value I420ToNV12(const Napi::CallbackInfo& info);
     Napi::Value FreeNv12(const Napi::CallbackInfo& info);
 

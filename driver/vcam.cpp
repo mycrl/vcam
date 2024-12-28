@@ -27,9 +27,9 @@ uint64_t gettime_100ns(void)
     return (uint64_t)time_val;
 }
 
-NV12Layout get_nv12_layout(size_t width, size_t height)
+Layout get_nv12_layout(size_t width, size_t height)
 {
-    NV12Layout layout;
+    Layout layout;
     layout.size = width * height * 1.5;
     layout.y_size = width * height;
     layout.uv_size = width * height / 2;
@@ -38,7 +38,7 @@ NV12Layout get_nv12_layout(size_t width, size_t height)
 
 uint8_t* i420_to_nv12(size_t width, size_t height, uint8_t* i420)
 {
-    NV12Layout layout = get_nv12_layout(width, height);
+    Layout layout = get_nv12_layout(width, height);
     uint8_t* nv12 = (uint8_t*)malloc(sizeof(uint8_t) * layout.size);
     if (nv12 == nullptr)
     {

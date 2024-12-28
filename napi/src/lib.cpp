@@ -8,10 +8,9 @@ Napi::Object VCamWrapper::Init(Napi::Env env, Napi::Object exports)
         InstanceMethod("start", &VCamWrapper::Start),
         InstanceMethod("write", &VCamWrapper::Write),
         InstanceMethod("stop", &VCamWrapper::Stop),
-        InstanceMethod("getNV12Layout", &VCamWrapper::GetNV12Layout),
-        InstanceMethod("i420ToNV12", &VCamWrapper::I420ToNV12),
-        InstanceMethod("freeNv12", &VCamWrapper::FreeNv12),
-                                              });
+        InstanceMethod("get_layout", &VCamWrapper::GetLayout),
+        InstanceMethod("i420_to_nv12", &VCamWrapper::I420ToNV12),
+        InstanceMethod("free_nv12", &VCamWrapper::FreeNv12),});
 
     constructor = Napi::Persistent(vcam_wrapper);
     constructor.SuppressDestruct();
@@ -126,7 +125,7 @@ Napi::Value VCamWrapper::I420ToNV12(const Napi::CallbackInfo& info)
     uint32_t height = info[1].As<Napi::Number>().Uint32Value();
     uint8_t* data = info[2].As<Napi::Buffer<uint8_t>>().Data();
 
-    NV12Layout layout = get_nv12_layout((size_t)width, (size_t)height);
+    Layout layout = get_nv12_layout((size_t)width, (size_t)height);
     uint8_t* nv12 = i420_to_nv12((size_t)width, (size_t)height, data);
     if (nv12 == NULL)
     {
@@ -157,7 +156,7 @@ Napi::Value VCamWrapper::FreeNv12(const Napi::CallbackInfo& info)
     return env.Null();
 }
 
-Napi::Value VCamWrapper::GetNV12Layout(const Napi::CallbackInfo& info)
+Napi::Value VCamWrapper::GetLayout(const Napi::CallbackInfo& info)
 {
     Napi::Env env = info.Env();
     if (info.Length() < 2)
@@ -178,7 +177,7 @@ Napi::Value VCamWrapper::GetNV12Layout(const Napi::CallbackInfo& info)
     uint32_t height = info[1].As<Napi::Number>().Uint32Value();
 
     Napi::Object layout_obj = Napi::Object::New(env);
-    NV12Layout layout = get_nv12_layout((size_t)width, (size_t)height);
+    Layout layout = get_nv12_layout((size_t)width, (size_t)height);
 
     layout_obj.Set("size", layout.size);
     layout_obj.Set("y", layout.y_size);

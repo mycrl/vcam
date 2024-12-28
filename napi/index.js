@@ -23,21 +23,21 @@ module.exports = class Vcam {
      * @returns {[[Type]]} [[Description]]
      */
     get_nv12_layout(width, height) {
-        return this._raw.getNV12Layout(width, height);
+        return this._raw.get_layout(width, height);
     }
 
     /**
      *
      */
     i420_to_nV12(width, height, buffer) {
-        return this._raw.i420ToNV12(width, height, buffer);
+        return this._raw.i420_to_nv12(width, height, buffer);
     }
 
     /**
      *
      */
     free_nv12(buffer) {
-        return this._raw.freeNv12(buffer);
+        return this._raw.free_nv12(buffer);
     }
 
     /**
@@ -56,7 +56,7 @@ module.exports = class Vcam {
      * @public
      */
     start(width, height) {
-        this._size = this.getNV12Layout(width, height).size;
+        this._size = this.get_layout(width, height).size;
         this._raw.start(width, height);
         this._runing = true;
     }
