@@ -19,7 +19,7 @@ This is a modified version of the Virtual Camera module from within OBS, providi
 
 Using Libobs or separating modules from OBS may not be a difficult task, but this project simplifies the process.
 
-### Building
+## Building
 
 This is a normal CMake project that follows the standard CMake generation steps.
 
@@ -39,7 +39,7 @@ cd napi
 npm i
 ```
 
-### Usage
+## Usage
 
 Firstly you need to register the DLL to the system service, this is a key step to get the virtual camera registered to the system.
 
@@ -57,53 +57,10 @@ regsvr32.exe /u /s "\to\path\vcam-service.dll"
 
 Then you can use the vcam driver to output the screen to the virtual camera, this is an example of outputting a 1920x1080 empty screen.
 
-```cpp
-#include "vcam.h"
-#include "windows.h"
+-   C++ - [./driver/example/simple.cpp](./driver/example/simple.cpp)
+-   Node.js - [./napi/example/simple.js](./napi/example/simple.js)
 
-int main() {
-  auto layout = get_nv12_layout(1920, 1080);
-  uint8_t* frame_buf = (uint8_t*)malloc(sizeof(uint8) * layout.size);
-  if (frame_buf == NULL) {
-    return -1;
-  }
-
-  VCam* vcam = vcam_open();
-  if (vcam == NULL) {
-    return -1;
-  }
-
-  if (vcam_start(vcam, 1920, 1080) != 0) {
-    return -1;
-  }
-
-  for (;;) {
-    Sleep(1000 / 30);
-    if (vcam_write_frame(vcam, frame_buf) != 0) {
-      return -1;
-    }
-  }
-}
-```
-
-#### Node.js
-
-This is a Node.js Native Module, similar to the C/C++ example.
-
-```js
-const vcam = new VCam();
-
-const layout = vcam.get_nv12_layout(1920, 1080);
-const buffer = Buffer.alloc(layout.size);
-
-vcam.start();
-
-for (;;) {
-    vcam.write(buffer);
-}
-```
-
-### License
+## License
 
 [GPL](./LICENSE)
 Copyright (c) 2024 Mr.Panda.
