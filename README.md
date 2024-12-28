@@ -55,6 +55,8 @@ If you don't need the virtual camera, i.e. unregister it, perform a similar oper
 regsvr32.exe /u /s "\to\path\vcam-service.dll"
 ```
 
+#### Examples
+
 Then you can use the vcam driver to output the screen to the virtual camera, this is an example of outputting a 1920x1080 empty screen.
 
 -   C++ - [./driver/example/simple.cpp](./driver/example/simple.cpp)
