@@ -1,0 +1,10 @@
+{
+    "name": "vcam-napi",
+    "gypfile": true,
+    "dependencies": {
+        "node-addon-api": "3.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2"
+    }
+}
