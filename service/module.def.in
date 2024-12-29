@@ -1,4 +1,4 @@
-LIBRARY     virtualcam-module@_output_suffix@.dll
+LIBRARY     vcam-service.dll
 EXPORTS
             DllMain                 PRIVATE
             DllGetClassObject       PRIVATE
