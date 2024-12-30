@@ -62,5 +62,5 @@ Then you can use the vcam driver to output the screen to the virtual camera, thi
 
 ## License
 
-[GPL](./LICENSE)
+[MIT](./LICENSE)
 Copyright (c) 2024 Mr.Panda.
